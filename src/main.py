@@ -1,5 +1,5 @@
 from dados import pacientes
-from funcoes import get_exames_por_paciente
+from funcoes import get_exames_por_paciente, listar_exames_fora_do_limite
 
 def main():
     nome = input("Digite o nome do paciente: ")
@@ -11,6 +11,15 @@ def main():
             print(f"- {exame['nome']}: {exame['valor']} (ref: {exame['referencia'][0]} a {exame['referencia'][1]})")
     else:
         print("Paciente não encontrado.")
+
+    print("\nExames fora da referência:")
+    exames_fora = listar_exames_fora_do_limite({"exames": exames})
+    if exames_fora:
+        for exame in exames_fora:
+            print(f"- {exame['nome']}: {exame['valor']} (ref: {exame['referencia'][0]} a {exame['referencia'][1]})")
+    else:
+        print("Todos os exames estão dentro da referência.")
+
 
 if __name__ == "__main__":
     main()

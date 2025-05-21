@@ -66,3 +66,24 @@ def buscar_exame_por_nome(nome_exame, exames_ordenados):
             inicio = meio + 1
 
     return None
+
+def salvar_relatorio_em_arquivo(paciente, nome_arquivo="relatorio_paciente.txt"):
+    with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+        arquivo.write("📋 RELATÓRIO DO PACIENTE\n")
+        arquivo.write(f"Nome: {paciente['nome'].capitalize()}\n")
+        arquivo.write(f"RA: {paciente['ra']}\n")
+        arquivo.write("Exames:\n")
+
+        for exame in paciente["exames"]:
+            nome = exame["nome"]
+            valor = exame["valor"]
+            ref_min, ref_max = exame["referencia"]
+
+            if valor < ref_min or valor > ref_max:
+                status = "⚠️ Fora do limite"
+            else:
+                status = "✓ Dentro do limite"
+
+            arquivo.write(f"- {nome}: {valor} (ref: {ref_min} a {ref_max}) {status}\n")
+
+    print(f"\nRelatório salvo como: {nome_arquivo}")

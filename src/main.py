@@ -3,7 +3,9 @@ from funcoes import (
     get_exames_por_paciente,
     listar_exames_fora_do_limite,
     gerar_dicionario_paciente,
-    exibir_relatorio_formatado
+    exibir_relatorio_formatado,
+    ordenar_exames_por_nome,
+    buscar_exame_por_nome
 )
 
 def main():
@@ -28,6 +30,18 @@ def main():
     dicionario = gerar_dicionario_paciente(nome, pacientes)
     print("\nRelatório formatado do paciente:")
     exibir_relatorio_formatado(dicionario)
+
+    print("\nBuscar exame por nome (busca binária):")
+    nome_exame = input("Digite o nome do exame: ")
+
+    exames_ordenados = ordenar_exames_por_nome(dicionario["exames"])
+    resultado = buscar_exame_por_nome(nome_exame, exames_ordenados)
+
+    if resultado:
+        print(
+            f"Exame encontrado: {resultado['nome']} - {resultado['valor']} (ref: {resultado['referencia'][0]} a {resultado['referencia'][1]})")
+    else:
+        print("Exame não encontrado.")
 
 
 if __name__ == "__main__":

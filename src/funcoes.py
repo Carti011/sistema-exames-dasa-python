@@ -40,3 +40,23 @@ def exibir_relatorio_formatado(paciente):
             status = "✓ Dentro do limite"
 
         print(f"- {nome}: {valor} (ref: {ref_min} a {ref_max}) {status}")
+
+def ordenar_exames_por_nome(exames):
+    return sorted(exames, key=lambda exame: exame["nome"].lower())
+
+def buscar_exame_por_nome(nome_exame, exames_ordenados):
+    inicio = 0
+    fim = len(exames_ordenados) - 1
+
+    while inicio <= fim:
+        meio = (inicio + fim) // 2
+        nome_atual = exames_ordenados[meio]["nome"].lower()
+
+        if nome_exame.lower() == nome_atual:
+            return exames_ordenados[meio]
+        elif nome_exame.lower() < nome_atual:
+            fim = meio - 1
+        else:
+            inicio = meio + 1
+
+    return None
